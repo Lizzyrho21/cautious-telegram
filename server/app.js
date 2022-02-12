@@ -10,7 +10,7 @@ var PORT = process.env.PORT || 3008;
 
 var indexRouter = require('./routes/index'); // example routes!
 var usersRouter = require('./routes/users'); // example routes!
-var loggedRouter = require('./routes/logged'); // example routes!
+
 
 
 
@@ -33,7 +33,7 @@ app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', cors(), spoitfy_auth_Router) // this is the endpoint set with cors!
-app.use('/logged', loggedRouter); // REDIRECTURI
+// app.use('/logged', loggedRouter); // REDIRECTURI
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -51,13 +51,14 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-const AuthRoutes = require('./routes/authRoutes.js');
+
 
 
 // listen on specified port we have 1 param, and a function. we use the port param to set the server.
 app.listen(PORT, function(err){
   if (err) console.log("Error in server setup")
-  console.log("Server listening on Port", process.env.PORT);
+  console.log(`Server listening on Port ${process.env.PORT}`);
 })
 
+// console.log(process.env.CLIENT_ID);
 module.exports = app; // export the bad boi 

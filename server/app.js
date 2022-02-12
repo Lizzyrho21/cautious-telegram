@@ -5,11 +5,13 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 require('dotenv').config() // dotenv for .env files
+const querystring = require('querystring'); // parse and stringify query strings
 var PORT = process.env.PORT || 3008;
 
 
 var indexRouter = require('./routes/index'); // example routes!
 var usersRouter = require('./routes/users'); // example routes!
+var loggedRouter = require('./routes/logged'); // example routes!
 
 
 
@@ -33,6 +35,8 @@ app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', cors(), spoitfy_auth_Router) // this is the endpoint set with cors!
+app.use('/logged',  loggedRouter) // this is the endpoint set with cors!
+
 // app.use('/logged', loggedRouter); // REDIRECTURI
 
 // catch 404 and forward to error handler

@@ -7,7 +7,9 @@ const axios = require('axios');
 
 
 router.get('/', (req, res) => {
+ // the code we recieve from the get request call  
 const code = req.query.code || null; // we store the value of our authorization code which we got from the code query param
+
 axios({
     method: 'post',
     url: 'https://accounts.spotify.com/api/token', //sending to the acesses token url

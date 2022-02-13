@@ -12,6 +12,8 @@ var PORT = process.env.PORT || 3008;
 var indexRouter = require('./routes/index'); // example routes!
 var usersRouter = require('./routes/users'); // example routes!
 var loggedRouter = require('./routes/logged'); // example routes!
+var refreshRouter = require('./routes/refresh'); // example routes!
+
 
 
 
@@ -36,6 +38,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', cors(), spoitfy_auth_Router) // this is the endpoint set with cors!
 app.use('/logged',  loggedRouter) // this is the endpoint set with cors!
+app.use('/refresh',  refreshRouter) // this is the endpoint set with cors!
+
 
 // app.use('/logged', loggedRouter); // REDIRECTURI
 

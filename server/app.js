@@ -38,7 +38,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', cors(), spoitfy_auth_Router) // this is the endpoint set with cors!
 app.use('/logged',  loggedRouter) // this is the endpoint set with cors!
-app.use('/refresh',  refreshRouter) // this is the endpoint set with cors!
+app.use('/',  refreshRouter) // this is the endpoint set with cors!
 
 
 // app.use('/logged', loggedRouter); // REDIRECTURI

@@ -40,6 +40,7 @@ Phase I:
     - Express
     - Axios
     - Nodemon
+    - Spotify API
 
 
 
@@ -47,3 +48,12 @@ Login page:
 - Utilize Spotify Authorization 
 
 
+I. Server Side Configuration
+References:
+
+	[Spotify Auth flow with NodeJS & Express](https://www.newline.co/courses/build-a-spotify-connected-app/welcome)
+
+  Next steps as of 02/12/2022: 
+  Client side authorization implementation
+
+  STRETCH GOALS: Implement Refresh token

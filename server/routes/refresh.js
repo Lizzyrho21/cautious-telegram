@@ -2,13 +2,13 @@ var express = require('express');
 var router = express.Router();
 const querystring = require('querystring'); // parse and stringify query strings
 
-app.get('/', (req, res) => {
+router.get('/refresh_token', (req, res) => {
     const { refresh_token } = req.query; // abstraction used here to take data from the request query
 
     axios({
         method: 'post',
         url: 'https://accounts.spotify.com/api/token',
-        data: querystring.encode({
+        data: querystring.stringify({
             grant_type: 'refresh_token', //grant_type is refresh_token instead of auth code
             refresh_token: refresh_token
             }),
@@ -26,5 +26,4 @@ app.get('/', (req, res) => {
 
 });
 
-
-module.exports = router
+module.exports = router;

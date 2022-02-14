@@ -1,5 +1,5 @@
 
-
+//2. user is authenticated, and taken back to callback (or site we want them to land on)
 var express = require('express');
 var router = express.Router();
 const querystring = require('querystring'); // parse and stringify query strings
@@ -25,24 +25,22 @@ axios({
     })
         .then(response => {
         if (response.status === 200) {
-            const { access_token, token_type } = response.data;
-            // const {refresh_token} = response.data;
-            
-            //make a get request to personal info
-            axios.get(`https://api.spotify.com/v1/me`, {
-                headers: {
-                    Authorization: `${token_type} ${access_token}`
-                }
-                })
-                .then(response => {
+         // here we pull access token (user granted access when logging in), the refresh token (to keep them logged in ),
+         // and the expires_in data (to keep track of how long a token has before we refresh it!)
+            const { access_token, refresh_token, expires_in } = response.data; //grab access token and refresh token from response data
 
-                    res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
-                })
-                .catch(error => {
-                    res.send(error);
+            // We can pass the tokens along to our React app with query params. Let's update our route handler to do that.
+            // set the query params to be parsed for transfer  
+            const queryParams = querystring.encode({
+                access_token,
+                refresh_token,
                 });
+                //redirect to react page with access_token and refresh token!
+                // res.send(queryParams);
+            res.redirect(`http://localhost:3000/?${queryParams}`); //sent over to react page to do final handling
+            
         } else {
-            res.send(response);
+            res.redirect(`/?${querystring.stringify({ error: 'invalid_token' })}`);
         }
         })
         .catch(error => {

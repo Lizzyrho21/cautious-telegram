@@ -1,4 +1,5 @@
 // SPOTIFY AUTH
+//1. Redirects you to sporify authorization login page! 
 
 var express = require('express');
 var router = express.Router();

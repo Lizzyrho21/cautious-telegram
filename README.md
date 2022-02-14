@@ -57,3 +57,5 @@ References:
   Client side authorization implementation
 
   STRETCH GOALS: Implement Refresh token
+
+  ERRORS ENCOUNTERED: The spotify authorization flow is no longer working. I have tried to hit the /login endpoint with my client and server side. I am not sure what is causing the problem. Go back through the tutorial and see what you can do to make it work again. Take any notes once issue is resolved.

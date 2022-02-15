@@ -1,5 +1,7 @@
 // Using LocalStorage ( refer to 'Janascript & JQuery pg. 420 for more information)
 import axios from 'axios';
+
+
 // Here, we are setting an object of key pairs. We can name these anything we want, but let's 
 // choose something memorable!
 const LOCALSTORAGE_KEYS = {
@@ -17,6 +19,9 @@ const LOCALSTORAGE_VALUES = {
   expireTime: window.localStorage.getItem(LOCALSTORAGE_KEYS.expireTime),
   timestamp: window.localStorage.getItem(LOCALSTORAGE_KEYS.timestamp),
 };
+
+
+
 
 /**
  * Checks if the amount of time that has elapsed between the timestamp in localStorage
@@ -116,3 +121,22 @@ const getAccessToken = () => {
   };
   
   export const accessToken = getAccessToken();
+
+
+  // Config Defaults
+// You can specify config defaults that will be applied to every request.
+/**
+ * Axios global request headers
+ * https://github.com/axios/axios#global-axios-defaults
+ */
+ axios.defaults.baseURL = 'https://api.spotify.com/v1';
+ axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
+ axios.defaults.headers['Content-Type'] = 'application/json';
+
+
+ /**
+ * Get Current User's Profile
+ * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-current-users-profile
+ * @returns {Promise}
+ */
+export const getCurrentUserProfile = () => axios.get('/me'); // export a function that returns a get request to Spotify user profile!

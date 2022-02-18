@@ -55,7 +55,8 @@ References:
 
  [Conditional Rnedering](https://www.digitalocean.com/community/tutorials/7-ways-to-implement-conditional-rendering-in-react-applications)
 
-[React Router v6](https://blog.logrocket.com/react-router-v6/)
+[React Router v6 tutorial](https://blog.logrocket.com/react-router-v6/)
+[React-Router v6 explanation](https://ui.dev/react-router-nested-routes)
 _________
 
   Next steps as of 02/12/2022: 

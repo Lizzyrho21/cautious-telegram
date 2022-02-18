@@ -2,9 +2,17 @@ import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from 'react';
 import { accessToken, logout, getCurrentUserProfile } from './spotify';
+import { Route, Routes, Link } from "react-router-dom";
 import  { Button } from 'react-bootstrap';
 import Profile from './components/Profile';
+import Test from './components/Test'
 import boy from './boy.png';
+import { BrowserRouter as Router } from "react-router-dom";
+
+
+
+
+
 
 function App() {
 
@@ -29,31 +37,69 @@ function App() {
         console.error(e);
       }
     };
-    fetchData();
-
+      fetchData();
+      return () => {
+        setProfile(null); // This worked for me
+      };
   }, []);
 
+  
+  console.log(profile)
+
   return (
+    <Router>
+  
     <div className="App">
+
       <header className="App-header">
-       
-        {!token ? (
+      
+        {!token ?  (
+          
           <Button  variant="secondary"><a style={{textDecoration: 'none'}} className="App-link" href="http://localhost:3008/login">
             Login To Get Started
           </a> </Button>
         ) : (
-          <>
-          <h1>Logged in!</h1>
-          {profile &&(
-          <Profile profileData={profile} />)}
-          <button onClick={logout}>Log Out</button>
-          </>
+          
+          <Routes>
+          <Route path="/" element={
+              (  <>
+
+      
+                <h1>Logged in!</h1>
+                
+                <Profile profile={profile}/>
+                  <button onClick={logout}>Log Out</button>
+                  </>)
+} />
+        
+            <Route path="/about" element={<Test/>} />
+        
+            </Routes>
+              
+        
+        
+
+      
+          
+
         
         )}
         
+        
       </header>
+      
+      
+    
     </div>
+ 
+    </Router>
   );
 }
+
+
+
+
+
+
 
 export default App;

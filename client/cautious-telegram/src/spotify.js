@@ -140,3 +140,4 @@ const getAccessToken = () => {
  * @returns {Promise}
  */
 export const getCurrentUserProfile = () => axios.get('/me'); // export a function that returns a get request to Spotify user profile!
+export const getGenreSeedData = () => axios.get('/recommendations/available-genre-seeds') //available genres

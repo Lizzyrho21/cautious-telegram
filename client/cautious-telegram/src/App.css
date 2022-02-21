@@ -1,7 +1,12 @@
 .App {
   text-align: center;
 }
-
+.auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -14,7 +19,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background: linear-gradient(180deg, #6540b4 0%, #d84fdb 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -24,8 +29,24 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.nav {
+  background: -webkit-linear-gradient(#3190ff, #31ff90);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* margin-right:70rem; */
+
+  padding-bottom: 2rem;
+  font-size: 5rem;
+}
+
+.nav-h {
+  margin-bottom: 2rem;
+}
+
+/* #login{ p} */
+
+#boy_in_space {
+  position: relative;
 }
 
 @keyframes App-logo-spin {

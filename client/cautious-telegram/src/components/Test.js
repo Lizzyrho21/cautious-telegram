@@ -10,9 +10,12 @@ import Paginate from './Paginate';
 const Test = () => {
     const [loading, setLoading] = useState(false); // for our loading
   const [userPicks, setUserPicks] = useState([]); // to store our user genre picks
+
+
   const [genre, setGenreSelection] = useState([]); // to access spotify genres available
   const [currentPage, setCurrentPage] = useState(1); // for our current page index (page 1)
   const [postsPerPage, setPostsPerPage] = useState(15) // how many pages for our data! about 13 results per page
+
 
 
 
@@ -41,8 +44,26 @@ const Test = () => {
         const indexOfFirstGenre = indexOfLastGenre - postsPerPage;
         const currentGenres = genre.slice(indexOfFirstGenre, indexOfLastGenre);
         const paginate = (pageNumber) => setCurrentPage(pageNumber); //sets current page!
-
-
+        // const userPicks = [];
+    
+        //Gets genres users select!
+        const getGenres = (el) => {
+            // push the user selections in array
+            setUserPicks([...userPicks, el]);
+            
+            //if three stop taking genres
+        if (userPicks.length === 3 ){
+            console.log(userPicks);
+            alert('You have enough!');
+        
+            return userPicks;
+            //if more than three, chop off the last index.
+        }else if (userPicks.length > 3 ){
+            alert('you have enough!');
+            setUserPicks(userPicks.pop(3));
+            console.log(userPicks);
+            return userPicks;
+        }}
 
 return (
     <>
@@ -51,14 +72,14 @@ return (
 <h1>Choose 3 Genres</h1>
     <Container fluid>
     <Row>
-            {genre && currentGenres.map((el) => {return(
+            {genre && currentGenres.map((el, idx) => {return(
         
         <>
         
                 <Col>
 
-            <Card style={{ width: '15rem', height: '6rem', marginTop: '4rem',}}>
-        <Card.Body>
+            <Card key={idx} style={{ width: '15rem', height: '6rem', marginTop: '4rem',}}>
+        <Card.Body onClick={() => {getGenres(el)}}>
             <Card.Title style={{color:'gray'}}>{el}</Card.Title>
         </Card.Body>
         </Card>
@@ -83,6 +104,7 @@ return (
 
     </>
 )
+
 }
 
 export default Test

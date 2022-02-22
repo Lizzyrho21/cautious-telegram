@@ -7,14 +7,19 @@ import {Container, Row, Col} from 'react-bootstrap';
 //import useeffect  and usestate for storing and upholding data
 
 const Test = () => {
+    const [loading, setLoading] = useState(false); // for our loading
   const [userPicks, setUserPicks] = useState([]); // to store our user genre picks
   const [genre, setGenreSelection] = useState([]); // to access spotify genres available
+  const [currentPage, setCurrentPage] = useState(1); // for our current page index (page 1)
+  const [postsPerPage, setPostsPerPage] = useState(10) // how many pages for our data! about 13 results per page
+
 
 
     // 3. Create out useEffect function
     useEffect(() => {
     
         const fetchGenreData = async () => {
+            setLoading(true);
             try {
               const { data } = await getGenreSeedData(); //destructuring to access the data property of the axios response.
               setGenreSelection(data.genres) // setting the state of profile data
@@ -24,19 +29,26 @@ const Test = () => {
                 }
             };
             fetchGenreData();
+            setLoading(false);
+
+            
             console.log(genre.length);
             
         },[])
+        const indexOfLastGenre = currentPage * postsPerPage;
+        const indexOfFirstGenre = indexOfLastGenre - postsPerPage;
+        const currentGenres = genre.slice(indexOfFirstGenre, indexOfLastGenre)
 
 
 
 return (
     <>
-
+  {loading ? (<h1>Loading...</h1>) : (
+<>
 <h1>Choose 3 Genres</h1>
     <Container fluid>
     <Row>
-            {genre && genre.map((el) => {return(
+            {genre && currentGenres.map((el) => {return(
         
         <>
         
@@ -55,15 +67,13 @@ return (
             )})}
             </Row>
         </Container>
+        </>)}
             
                 
             
         
 
-            {/* <div class="px-3 py-20 flex flex-wrap overflow-hidden lg:-mx-2 ">
-            <div class=" font-bold text-xl mb-2 mt-4 text-gray-700">{el}</div>
-        </div> 
-        </div> */}
+    
 
 
     </>

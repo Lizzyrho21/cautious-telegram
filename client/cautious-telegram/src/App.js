@@ -12,6 +12,9 @@ import { BrowserRouter as Router } from "react-router-dom"; //We need to import 
 function App() {
   const [token, setToken] = useState(null); // to store our access token
   const [profile, setProfile] = useState(null); // for our profile data
+  const [loading, setLoading] = useState(false); // for our loading
+  // const [currentPage, setCurrentPage] = useState(1); // for our current page index (page 1)
+  // const [postsPerPage, setPostsPerPage] = useState(10) // how many pages for our data! about 13 results per page
 
   useEffect(() => {
     setToken(accessToken); // setting our state token to the access token exported!
@@ -22,7 +25,9 @@ function App() {
     //    we handle this by creating an async function called fetchData()
     //     within our useEffect hook and invoking it.
     const fetchData = async () => {
+      setLoading(true)
       try {
+        
         const { data } = await getCurrentUserProfile(); //destructuring to access the data property of the axios response.
         setProfile(data); // setting the state of profile data
       } catch (e) {
@@ -30,6 +35,7 @@ function App() {
       }
     };
     fetchData();
+    setLoading(false)
     return () => {
       setProfile(null); // This worked for me
     };
@@ -97,11 +103,11 @@ function App() {
                 path="/"
                 element={
                   <>
-                    <h1>Logged in!</h1>
+                    <nav><button className="logout" onClick={logout}>Log Out</button></nav>
 
                     <Profile profile={profile} />
 
-                    <button onClick={logout}>Log Out</button>
+                    
                   </>
                 }
               />

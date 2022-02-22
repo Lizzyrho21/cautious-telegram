@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { getGenreSeedData } from "../spotify";
 import Card from 'react-bootstrap/Card';
 import {Container, Row, Col} from 'react-bootstrap';
+import Paginate from './Paginate';
 // import axios for fetching data
 //import useeffect  and usestate for storing and upholding data
 
@@ -11,7 +12,8 @@ const Test = () => {
   const [userPicks, setUserPicks] = useState([]); // to store our user genre picks
   const [genre, setGenreSelection] = useState([]); // to access spotify genres available
   const [currentPage, setCurrentPage] = useState(1); // for our current page index (page 1)
-  const [postsPerPage, setPostsPerPage] = useState(10) // how many pages for our data! about 13 results per page
+  const [postsPerPage, setPostsPerPage] = useState(15) // how many pages for our data! about 13 results per page
+
 
 
 
@@ -37,7 +39,8 @@ const Test = () => {
         },[])
         const indexOfLastGenre = currentPage * postsPerPage;
         const indexOfFirstGenre = indexOfLastGenre - postsPerPage;
-        const currentGenres = genre.slice(indexOfFirstGenre, indexOfLastGenre)
+        const currentGenres = genre.slice(indexOfFirstGenre, indexOfLastGenre);
+        const paginate = (pageNumber) => setCurrentPage(pageNumber); //sets current page!
 
 
 
@@ -68,6 +71,8 @@ return (
             </Row>
         </Container>
         </>)}
+
+        <Paginate postsPerPage={postsPerPage} totalGenres={genre.length} paginate={paginate}/>
             
                 
             

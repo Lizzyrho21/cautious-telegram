@@ -3,7 +3,10 @@ import { useState, useEffect } from "react";
 import { getGenreSeedData } from "../spotify";
 import Card from 'react-bootstrap/Card';
 import {Container, Row, Col} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import Paginate from './Paginate';
+import Playlist from './Playlist';
+
 // import axios for fetching data
 //import useeffect  and usestate for storing and upholding data
 
@@ -65,6 +68,13 @@ const Test = () => {
             return userPicks;
         }}
 
+
+   // create a function to target endpoint with genres map and passed in.
+   // userpicks.map((tracks) =>{
+//axois.get (hdjhudehehuhfu)
+// for each genre, should return 5 objects each with data!
+  // })
+
 return (
     <>
   {loading ? (<h1>Loading...</h1>) : (
@@ -95,8 +105,8 @@ return (
 
         <Paginate postsPerPage={postsPerPage} totalGenres={genre.length} paginate={paginate}/>
             
-                
-            
+        {userPicks.length >= 3 ? (<Button>Generate</Button>) :  undefined}        
+        
         
 
     

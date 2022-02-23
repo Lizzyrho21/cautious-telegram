@@ -49,7 +49,7 @@ function App() {
         <header className="App-header">
           {!token ? (
             <div className="auth">
-              <h1 className="nav">MUSSCAPE</h1>
+              <h1 className="nav">MUSCAPE</h1>
               <h4 className="font-bold nav-h">Inspire your best work</h4>
               <button id="login" className="">
                 <a

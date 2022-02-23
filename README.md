@@ -84,3 +84,9 @@ What is the goal?
   - Store in Playlist
   - STRETCH - SONG LIST SHOWN & MUSIC PLAYER
 
+02/23/2022
+
+- Save songs in state object (playlist of song array objects)
+-  make player feature!
+- click of a button, add songs to playlist.
+- refresh, to restart process

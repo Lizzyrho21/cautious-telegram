@@ -141,4 +141,6 @@ const getAccessToken = () => {
  */
 export const getCurrentUserProfile = () => axios.get('/me'); // export a function that returns a get request to Spotify user profile!
 export const getGenreSeedData = () => axios.get('/recommendations/available-genre-seeds') //available genres
-export const  getSongs = (songs) => axios.get(`/search?type=track&q=year:1958%20genre:${songs}&limit=5`);
+// export const  getSongs = (songs) => axios.get(`/search?type=track&q=year:1958%20genre:${songs}&limit=15`);
+// https://api.spotify.com/v1/search?q=bluegrass&type=track&market=ES&limit=10&offset=5
+export const  getSongs = (songs) => axios.get(`search?q=${songs}&type=track&market=ES&limit=5&offset=5`);

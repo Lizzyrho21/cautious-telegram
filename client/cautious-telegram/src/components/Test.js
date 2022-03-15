@@ -7,6 +7,8 @@ import { Button } from "react-bootstrap";
 import Paginate from "./Paginate";
 // import Playlist from './Playlist';
 import { getSongs } from "../spotify";
+import Playlist from "./Playlist";
+import { Route, Routes, Link } from "react-router-dom";
 
 // import axios for fetching data
 //import useeffect  and usestate for storing and upholding data
@@ -33,132 +35,124 @@ const Test = () => {
     };
     fetchGenreData();
     setLoading(false);
-
-    console.log(genre.length);
   }, []);
   const indexOfLastGenre = currentPage * postsPerPage;
   const indexOfFirstGenre = indexOfLastGenre - postsPerPage;
   const currentGenres = genre.slice(indexOfFirstGenre, indexOfLastGenre);
   const paginate = (pageNumber) => setCurrentPage(pageNumber); //sets current page!
-  // const userPicks = [];
 
   //Gets genres users select!
   const getGenres = (el) => {
     // push the user selections in array
-    setUserPicks([...userPicks, el]);
 
+    setUserPicks([...userPicks, el]);
     //if three stop taking genres
-    if (userPicks.length === 2) {
-      console.log(userPicks);
-      alert("You have enough!");
+    if (userPicks.length === 3) {
+      alert("Genres entered");
+      // console.log(userPicks);
+      userPicks.forEach((element) => {
+        getGenrePlay(element);
+      });
+
+      // console.log(genre.length);
 
       return userPicks;
       //if more than three, chop off the last index.
-    } else if (userPicks.length > 2) {
+    } else if (userPicks.length > 3) {
       alert("you have enough!");
-      setUserPicks(userPicks.pop(2));
-      console.log(userPicks);
+      setUserPicks(userPicks.pop(3)); //take out index position 3
+      // console.log(userPicks);
       return userPicks;
     }
   };
 
   // create a function to target endpoint with genres map and passed in.
-  const clickit = () => {
-    const getGenrePlay = async (el) => {
-      try {
-        // console.log(userPicks)
 
-        //     userPicks.forEach()
-        const { data } = await getSongs(el);
-        //   //destructuring to access the data property of the axios response.
-        // //   const { data } =  await getSongs(userPicks[1]); //destructuring to access the data property of the axios response.
-        // //  const { dataGenreThree } = await getSongs(userPicks[2]);
+  const getGenrePlay = async (el) => {
+    try {
+      // console.log(userPicks)
 
-        console.log(data);
-        // data.tracks.items.map((track) => {
-        //    return console.log(track)
-        //     // setTopSongPicks(...topSongPicks, [{artist: track.artists[0]}] )
-        //     // console.log(topSongPicks);
-        // }
-      } catch (e) {
-        console.error(e);
-      }
+      //     userPicks.forEach()
 
-      //     try{
+      const { data } = await getSongs(el);
+      console.log(data);
 
-      //         console.log(userPicks[1]);
-      //     const { data } = await getSongs(userPicks[1]); //destructuring to access the data property of the axios response.
-      //         console.log(data)
-      //     }catch (e) {
+      // tracks.push(data);
+    } catch (e) {
+      console.error(e);
+    }
 
-      //     }
-      //     try{
-      //         const { data } =  await getSongs(userPicks[3]);
-      //         console.log(data)
-      //     }catch(e){
+    // console.log(topSongPicks)
+  };
 
-      //     }
-      // };
-    };
-    userPicks.forEach((el, idx) => getGenrePlay(el));
-    };
-    // userpicks.map((tracks) =>{
-    //axois.get (hdjhudehehuhfu)
-    // for each genre, should return 5 objects each with data!
-    // })
-
-    return (
+  return (
+    <>
+      {loading ? (
+        <h1>Loading...</h1>
+      ) : (
         <>
-        {loading ? (
-            <h1>Loading...</h1>
-        ) : (
-            <>
-            <h1>Choose 2 Genres</h1>
-            <Container fluid>
-                <Row>
-                {genre &&
-                    currentGenres.map((el, idx) => {
-                    return (
-                        <>
-                        <Col>
-                            <Card
-                            key={idx}
-                            style={{
-                                width: "15rem",
-                                height: "6rem",
-                                marginTop: "4rem",
+          <h1>Choose a Genre</h1>
+          <Container fluid>
+            <Row>
+              {genre &&
+                currentGenres.map((el, idx) => {
+                  return (
+                    <>
+                      <Col key={idx}>
+                        <Card
+                          style={{
+                            width: "15rem",
+                            height: "6rem",
+                            marginTop: "4rem",
+                          }}
+                          key={idx}
+                        >
+                          <Card.Body
+                            onClick={() => {
+                              getGenres(el);
                             }}
-                            >
-                            <Card.Body
-                                onClick={() => {
-                                getGenres(el);
-                                }}
-                            >
-                                <Card.Title style={{ color: "gray" }}>
-                                {el}
-                                </Card.Title>
-                            </Card.Body>
-                            </Card>
-                        </Col>
-                        </>
-                    );
-                    })}
-                </Row>
-            </Container>
-            </>
-        )}
-
-        <Paginate
-            postsPerPage={postsPerPage}
-            totalGenres={genre.length}
-            paginate={paginate}
-        />
-
-        {userPicks.length >= 2 ? (
-            <Button onClick={clickit}>Generate</Button>
-        ) : undefined}
+                          >
+                            <Card.Title style={{ color: "gray" }}>
+                              {el}
+                            </Card.Title>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    </>
+                  );
+                })}
+            </Row>
+          </Container>
         </>
-    );
-    };
+      )}
+
+      <Paginate
+        postsPerPage={postsPerPage}
+        totalGenres={genre.length}
+        paginate={paginate}
+      />
+
+      {userPicks.length >= 1 ? (
+        <Button onClick={getGenrePlay}>Generate</Button>
+      ) : undefined}
+      <Routes>
+        <Route path="/playlist" element={<Playlist tracks={topSongPicks} />} />
+      </Routes>
+      {topSongPicks.length === 1 ? (
+        <button className="w-full px-4 py-2 font-semibold text-white transition bg-green-500 rounded-lg shadow-lg hover:bg-blue-600 hover:border-primary hover:bg-primary hover:text-white">
+          <Link
+            className="text-white"
+            style={{ textDecoration: "none" }}
+            to="/playlist"
+          >
+            {" "}
+            🎵 See Generated Playlist! 🎵
+          </Link>
+        </button>
+      ) : null}
+      {/* <Playlist tracks={topSongPicks}/> */}
+    </>
+  );
+};
 
 export default Test;

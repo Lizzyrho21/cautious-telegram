@@ -16,7 +16,7 @@ const Paginate = ({postsPerPage, totalGenres, paginate}) => {
     }
   return (
     <>
-      <Pagination>{pageNumbers}</Pagination>
+      <Pagination style={{marginTop: '2rem'}}>{pageNumbers}</Pagination>
     <br />
     </>
   )
